@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mongo-nlweb
+spec:
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        role: mongo-nlweb
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mongo
+          image: harbor.ausmpc.pcf.dell.com/neoload/mongo:latest
+          resources:
+            limits:
+              cpu: '500m'
+              memory: "6000Mi"
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-pv
+              mountPath: /data/db
+      volumes:
+      - name: mongo-pv
+        persistentVolumeClaim:
+          claimName: mongo-nlweb-pvc
