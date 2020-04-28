@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-server
+spec:
+  type: LoadBalancer
+  selector:
+    app: nginx
+    env: prod
+  ports:
+    - port: 80
+      targetPort: 80
