@@ -6,12 +6,6 @@ A small set of Kubernetes examples for beginners interested in learning essentia
 
 ----
 
-## To start using Kubernetes
-
-See our documentation on [kubernetes.io].
-
-Try our [interactive tutorial].
-
 ## Essential kubectl commands
 
 ```
