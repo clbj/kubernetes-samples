@@ -8,4 +8,9 @@ spec:
     app: grafana
     env: prod
   ports:
-    - port: 3000
+    - name: loki
+      port: 3100
+      targetPort: 3100
+    - name: grafana
+      port: 80
+      targetPort: 3000
