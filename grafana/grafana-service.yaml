@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: grafana-server
+spec:
+  type: LoadBalancer
+  selector:
+    app: grafana
+    env: prod
+  ports:
+    - port: 3000
