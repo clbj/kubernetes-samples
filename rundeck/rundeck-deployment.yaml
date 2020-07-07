@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: rundeck-deployment
+spec:
+  selector:
+    matchLabels:
+      app: rundeck
+      env: prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rundeck
+        env: prod
+    spec:
+      volumes:
+        - name: rundeck-projects
+          emptyDir: {}
+        - name: rundeck-data
+          emptyDir: {}
+      containers:
+        - name: rundeck
+          image: rundeck:3.2.5
+          imagePullPolicy: Always
+          ports:
+            - name: http-port
+              containerPort: 4440
+          resources:
+            limits:
+              memory: "3800Mi"
+              cpu: "3800m"
+            requests:
+              memory: "3600Mi"
+              cpu: "3600m"
+          volumeMounts:
+            - name: rundeck-projects
+              mountPath: /home/rundeck/projects
+            - name: rundeck-data
+              mountPath: /home/rundeck/server/data
