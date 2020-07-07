@@ -15,13 +15,25 @@ spec:
         env: prod
     spec:
       containers:
+        - name: prometheus
+          image: prom/prometheus
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9090
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "800m"
+            requests:
+              memory: "1Gi"
+              cpu: "600m"
         - name: loki
+          args:
+            - -config.file=/etc/loki/local-config.yaml
           image: grafana/loki:1.5.0
           imagePullPolicy: Always
           ports:
             - containerPort: 3100
-          command:
-            - "-config.file=/etc/loki/local-config.yaml"
           resources:
             limits:
               memory: "1Gi"
@@ -30,10 +42,10 @@ spec:
               memory: "1Gi"
               cpu: "600m"
         - name: promtail
+          args:
+            - -config.file=/etc/promtail/docker-config.yaml
           image: grafana/promtail:1.5.0
           imagePullPolicy: Always
-          command:
-            - "-config.file=/etc/promtail/docker-config.yaml"
           resources:
             limits:
               memory: "1Gi"
